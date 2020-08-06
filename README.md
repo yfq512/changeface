@@ -1,8 +1,10 @@
 ## changeface
 基于图像的人脸替换. 
-### 该项目在 https://github.com/gyp03/yry 上进行优化
+### 该项目在 https://github.com/gyp03/yry 基础上进行优化
 ## 效果
-
+<img src="https://github.com/yfq512/changeface/blob/master/images/1.jpg" width="300" height="300" >+
+<img src="https://github.com/yfq512/changeface/blob/master/images/2.jpg" width="300" height="300" >=
+<img src="https://github.com/yfq512/changeface/blob/master/images/output.jpg" width="300" height="300" >
 ## 环境
 该项目无*特殊*环境，需要时可参考环境文件
 ## 运行
