@@ -12,6 +12,5 @@
 2. 在[core/recognizer.py](https://github.com/yfq512/changeface/blob/master/core/recognizer.py)的def landmarks_by_face__函数中的api_key，api_secret替换为自己的  
 3. 运行:ModuleTest.py
 ## 待改进
-1. 将face++的API换成开源的脸部关键点提取算法。
-2. 生成的图像有时会有黑色像素块。
+将face++的API换成开源的脸部关键点提取算法。
 # 声明：该项目仅用做学习交流，若用于其他用途而产生的法律责任请自行承担
