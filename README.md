@@ -1,5 +1,5 @@
 ## changeface
-基于图像的人脸替换. 
+基于图像的人脸融合/替换. 
 ### 该项目在 https://github.com/gyp03/yry 基础上进行优化
 ## 效果
 <img src="https://github.com/yfq512/changeface/blob/master/images/1.jpg" width="200" height="200" >+
