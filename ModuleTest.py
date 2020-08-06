@@ -5,8 +5,8 @@
 import core
 
 if __name__ == '__main__':
-    core.face_merge(src_img='images/3.jpg',
-                    dst_img='images/model.jpg',
+    core.face_merge(src_img='images/1.jpg',
+                    dst_img='images/2.jpg',
                     out_img='images/output.jpg',
                     face_area=[50, 30, 500, 485],
                     alpha=0.75,
