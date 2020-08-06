@@ -62,8 +62,8 @@ def face_points(image):
 def landmarks_by_face__(image):
     url = 'https://api-cn.faceplusplus.com/facepp/v3/detect'
     params = {
-        'api_key': '3Emt9gawuMLbzc9EY8U3CQ05lj8TbhX0',
-        'api_secret': 'deQaGpaERbpU01mZEI9oi6bf1lWLUIuZ',
+        'api_key': 'yfq3Emt9gawuMLbzc9EY8U3CQ05lj8TbhX0',
+        'api_secret': 'yfqdeQaGpaERbpU01mZEI9oi6bf1lWLUIuZ',
         'return_landmark': 1,
     }
     file = {'image_file': open(image, 'rb')}
