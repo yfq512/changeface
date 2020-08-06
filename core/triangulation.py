@@ -28,12 +28,12 @@ def measure_triangle(image, points):
 
     cnt_ = 1
     for p in points:
-        cnt_ = cnt_ + 1
-        if len(points)==99:
-            #p = (int(p[0]), int(p[1]))
-            #cv2.circle(image, p, 1, ((0,0,255)), 4)
-            #cv2.putText(image, str(cnt_),p, cv2.FONT_HERSHEY_COMPLEX, 1,  ((0,0,255)), 1)
-            p = (min(image.shape[1]-1, int(p[0])), min(image.shape[0]-1, int(p[1])))
+        #cnt_ = cnt_ + 1
+        #if len(points)==99:
+        #    #p = (int(p[0]), int(p[1]))
+        #    #cv2.circle(image, p, 1, ((0,0,255)), 4)
+        #    #cv2.putText(image, str(cnt_),p, cv2.FONT_HERSHEY_COMPLEX, 1,  ((0,0,255)), 1)
+        #    p = (min(image.shape[1]-1, int(p[0])), min(image.shape[0]-1, int(p[1])))
         sub_div.insert(p)
     triangle_list = sub_div.getTriangleList()
 
@@ -51,12 +51,15 @@ def measure_triangle(image, points):
 
         if rect_contains(rect, pt1) and rect_contains(rect, pt2) and rect_contains(rect, pt3):
             ind = []
+            limit_ = 0.1
             for j in range(0, 3):
                 for k in range(0, len(points)):
-                    if abs(pt[j][0] - points[k][0]) < 1.0 and abs(pt[j][1] - points[k][1]) < 1.0:
+                    if abs(pt[j][0] - points[k][0]) < limit_ and abs(pt[j][1] - points[k][1]) < limit_:
                         ind.append(k)
-            if len(ind) == 3:
+            if len(ind) == 3: # 原三角刨分的点，在此过程会丢失，可能是造成黑色像素块的原因
                 triangle.append((ind[0], ind[1], ind[2]))
+            else:
+                pass
 
         pt = []
 
