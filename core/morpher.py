@@ -156,7 +156,6 @@ def repair_face(res_img, src_img):
     ret,thresh2 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV)
     thresh2 = np.array(thresh2,np.uint8)
     contours,hierarchy = cv2.findContours(thresh2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    print(len(contours))
     img_contours = []
     img_mask = np.zeros(src_img.shape, np.uint8)
     for i in range(len(contours)):
