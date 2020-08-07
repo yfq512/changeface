@@ -151,6 +151,27 @@ def merge_img(src_img, dst_img, dst_matrix, dst_points, blur_detail_x=None, blur
 
     return cv2.seamlessClone(np.uint8(dst_img), src_img, face_mask, center, cv2.NORMAL_CLONE)
 
+def repair_face(res_img, src_img):
+    gray = cv2.cvtColor(res_img, cv2.COLOR_RGB2GRAY)
+    ret,thresh2 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV)
+    thresh2 = np.array(thresh2,np.uint8)
+    contours,hierarchy = cv2.findContours(thresh2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    print(len(contours))
+    img_contours = []
+    img_mask = np.zeros(src_img.shape, np.uint8)
+    for i in range(len(contours)):
+        area = cv2.contourArea(contours[i])
+        #print("轮廓 %d 的面积是:%d" % (i, area))
+        img_temp = np.zeros(res_img.shape, np.uint8)
+        img_contours.append(img_temp)
+        cv2.drawContours(img_contours[i], contours, i, (255, 255, 255), -1)
+
+        if area < 300:
+            img_mask = img_mask + img_contours[i]
+    src_img_mask = src_img * (img_mask/255)
+    res_img = res_img + src_img_mask
+    return res_img
+    exit()
 
 def morph_img(src_img, src_points, dst_img, dst_points, alpha=0.5):
     morph_points = []
@@ -178,8 +199,9 @@ def morph_img(src_img, src_points, dst_img, dst_points, alpha=0.5):
 
         core.morph_triangle(src_img, dst_img, res_img, t1, t2, t, alpha)
 
-    return res_img
+    res_img = repair_face(res_img, src_img)
 
+    return res_img
 
 def face_merge(dst_img, src_img, out_img,
                face_area, alpha=0.75,
