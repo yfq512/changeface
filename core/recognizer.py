@@ -8,6 +8,8 @@ import dlib
 import requests
 import numpy as np
 import cv2
+import math
+import matplotlib.pyplot as plt
 
 predictor_model = 'shape_predictor_68_face_landmarks.dat'
 
@@ -20,8 +22,10 @@ NOSE_POINTS = list(range(55, 65))
 RIGHT_EYE_POINTS = list(range(65, 75))
 RIGHT_BROW_POINTS = list(range(75, 68))
 
-LEFT_FACE = list(range(0, 8)) + list(range(17, 21))
-RIGHT_FACE = list(range(8, 16)) + list(range(22, 26))
+#LEFT_FACE = list(range(0, 8)) + list(range(17, 21))
+#RIGHT_FACE = list(range(8, 16)) + list(range(22, 26))
+LEFT_FACE = list(range(0, 8)) + list(range(68, 72))
+RIGHT_FACE = list(range(8, 16)) + list(range(73, 77))
 
 JAW_END = 19
 FACE_START = 0
@@ -114,5 +118,41 @@ def matrix_marks(res):
     points = []
     for p in pose_landmarks.parts():
         points.append([p.x, p.y])
+    points = add_10points(points)
+    #print(len(points))
+    #font = cv2.FONT_HERSHEY_SIMPLEX
+    #cnt = 0
+    #for n in points:
+    #    nn = (n[0], n[1])
+    #    print(nn)
+    #    cv2.circle(image, nn, 1, (0,0,255), 4)
+    #    cv2.putText(image, str(cnt), nn, font, 0.5, (255, 255, 255), 1)
+    #    cnt = cnt + 1
+    #cv2.imwrite('dasdsa.jpg',image)
+    #exit()
+    return points
 
+def add_by_d_alph(list_, d, alph):
+    x_add = int(math.cos(alph) * d)
+    y_add = int(math.sin(alph) * d)
+    out_list = []
+    for n in list_:
+        a = n[0] - x_add
+        b = n[1] - y_add
+        out_list.append([a,b])
+    return out_list
+
+
+def add_10points(points):
+    p_18, p_19, p_20, p_21, p_22, p_23, p_24, p_25, p_26, p_27, p_38, p_45 = points[17], points[18], points[19], points[20], points[21], points[22], points[23], points[24], points[25], points[26], points[37], points[44]
+    d1 = ((abs(p_20[0] - p_38[0]))**2 + (abs(p_20[1] - p_38[1]))**2)**(0.5)
+    d2 = ((abs(p_25[0] - p_45[0]))**2 + (abs(p_25[1] - p_45[1]))**2)**(0.5)
+    d = (d1+d2)/2
+    k = 0.5
+    d = d*k
+    alph = (math.atan(abs(p_20[1] - p_38[1])/(abs(p_20[0]-p_38[0])+0.00001)) + math.atan(abs(p_25[1] - p_45[1])/(abs(p_25[0] - p_45[0])+0.00001)))/2 # 单位：弧度
+    
+    add_10_points = add_by_d_alph([p_18, p_19, p_20, p_21, p_22, p_23, p_24, p_25, p_26, p_27],d,alph)
+    for n in add_10_points:
+        points.append(n)
     return points
