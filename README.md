@@ -1,4 +1,4 @@
-## face merge
+## face merge 人脸融合/人脸替换
 face merge by dlib and opencv
 ### this project base https://github.com/gyp03/yry 
 ### install dlib https://www.cnblogs.com/niulang/p/13208510.html
