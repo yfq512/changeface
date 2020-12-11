@@ -5,11 +5,11 @@
 import core
 
 if __name__ == '__main__':
-    core.face_merge(src_img='images/1.jpg',
-                    dst_img='images/2.jpg',
-                    out_img='images/output.jpg',
+    core.face_merge(src_img='6.jpg',
+                    dst_img='33.jpg',
+                    out_img='output.jpg',
                     face_area=[50, 30, 500, 485],
-                    alpha=0.75,
+                    alpha=0.65,
                     blur_detail_x=15,
                     blur_detail_y=10,
-                    mat_multiple=0.95)
+                    mat_multiple=0.90)
