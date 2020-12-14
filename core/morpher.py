@@ -230,10 +230,10 @@ def face_merge(dst_img, src_img, out_img,
     dst_img = merge_img(src_img, dst_img, dst_matrix, dst_points, blur_detail_x, blur_detail_y, mat_multiple)
 
     os.remove(trans_file)
-    os.remove(trans_file + '.txt')
+    #os.remove(trans_file + '.txt')
 
     os.remove(morph_file)
-    os.remove(morph_file + '.txt')
+    #os.remove(morph_file + '.txt')
 
     cv2.imwrite(out_img, dst_img)
 
