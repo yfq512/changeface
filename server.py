@@ -3,6 +3,7 @@ import re
 import time
 import random
 import base64
+import ModuleTest2
 from flask import Flask,render_template,request
 
 def getRandomSet(bits):
@@ -28,11 +29,14 @@ def face_merge():
         alpha = float(alpha)
         mat_multiple = float(mat_multiple)
 
+        temp_root = 'temp'
+
         imgdata1 = re.sub(r'data:image/[a-zA-Z]*;base64,', "",imgdata1) # 适配js库base64
         imgdata1 = imgdata1.replace("data:image/jpeg;base64,", "") # 适配多种图像类型
         imgdata1 = base64.b64decode(imgdata1)
         img_stye1 = '.' + imgname1.split('.')[-1]
         img_path_temp1 = getRandomSet(15) + img_stye1
+        img_path_temp1 = os.path.join(temp_root, img_path_temp1)
         f1 = open(img_path_temp1, 'wb')
         f1.write(imgdata1)
         f1.close()
@@ -42,12 +46,17 @@ def face_merge():
         imgdata2 = base64.b64decode(imgdata2)
         img_stye2 = '.' + imgname2.split('.')[-1]
         img_path_temp2 = getRandomSet(15) + img_stye2
+        img_path_temp2 = os.path.join(temp_root, img_path_temp2)
         f2 = open(img_path_temp2, 'wb')
         f2.write(imgdata2)
         f2.close()
-        print(img_path_temp1)
-        print(img_path_temp2)
-        return "<h1>Face merge!</h1>"
+
+        out_img_path = os.path.join(temp_root, getRandomSet(15) + '.jpg')
+
+        ModuleTest2.main(img_path_temp1, img_path_temp2, out_img_path, alpha, mat_multiple)
+        os.remove(img_path_temp1)
+        os.remove(img_path_temp2)
+        return {'sign':1, 'outimgname':out_img_path}
     else:
         return "<h1>Face merge!</h1>"
 

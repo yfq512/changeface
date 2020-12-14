@@ -12,6 +12,5 @@ data={"imgdata1":imgbase64_1,"imgname1":'me.jpg',"imgdata2":imgbase64_2,"imgname
 r = s.post("http://127.0.0.1:8881/facemerge", data)
 
 print(r)
-
 print(r.text)
 print('time cost:', time.time() - t1)
